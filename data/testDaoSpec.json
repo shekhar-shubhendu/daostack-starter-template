@@ -1,0 +1,72 @@
+{
+  "orgName": "DevTest",
+  "tokenName": "Dev",
+  "tokenSymbol": "DEV",
+  "useUController": false,
+  "useDaoCreator": true,
+  "schemes": {
+    "ContributionReward": true,
+    "SchemeRegistrar": true,
+    "GlobalConstraintRegistrar": false,
+    "UpgradeScheme": true
+  },
+  "ContributionReward": [
+    {
+      "voteParams": 0
+    }
+  ],
+  "SchemeRegistrar": [
+    {
+      "voteRegisterParams": 0,
+      "voteRemoveParams": 0
+    }
+  ],
+  "VotingMachinesParams": [
+    {
+      "queuedVoteRequiredPercentage": 50,
+      "queuedVotePeriodLimit": 432000,
+      "boostedVotePeriodLimit": 86400,
+      "preBoostedVotePeriodLimit": 43200,
+      "thresholdConst": 1200,
+      "quietEndingPeriod": 14400,
+      "proposingRepReward": 500,
+      "votersReputationLossRatio": 1,
+      "minimumDaoBounty": 150,
+      "daoBountyConst": 10,
+      "activationTime": 0,
+      "voteOnBehalf": "0x0000000000000000000000000000000000000000"
+    }
+  ],
+  "StandAloneContracts": [
+    {
+      "name": "SignalScheme",
+      "fromArc": false
+    }
+  ],
+  "CustomSchemes": [
+    {
+      "name": "GenericScheme",
+      "schemeName": "GenericScheme",
+      "isUniversal": false,
+      "params": [
+        "GenesisProtocolAddress",
+        {
+          "voteParams": 0
+        },
+        {
+          "StandAloneContract": 0
+        }
+      ],
+      "permissions": "0x00000010",
+      "alias": "GenericSchemeAlias",
+      "fromArc": true
+    }
+  ],
+  "founders": [
+    {
+      "address": "0x1C90FAC3dCDEAee6B0efD7096C2922585936de73",
+      "reputation": 250,
+      "tokens": 2000
+    }
+  ]
+}
