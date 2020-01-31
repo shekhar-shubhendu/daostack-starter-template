@@ -12,6 +12,7 @@ async function migrate() {
     force: true,
     output: 'data/migration.json',
     mnemonic: process.env.MNEMONIC,
+    customabislocation: 'build/contracts',
     params: {
       private: migrationSpec,
       rinkeby: migrationSpec
