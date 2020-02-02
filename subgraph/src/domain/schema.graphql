@@ -188,3 +188,8 @@ type ContractInfo @entity {
 	version: String!
 	address: Bytes!
 }
+
+type Signal @entity{
+	id: ID!
+	data: String
+}

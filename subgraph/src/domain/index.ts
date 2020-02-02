@@ -47,6 +47,7 @@ import {
 import { insertStake } from './stake';
 import { getToken, insertToken, updateTokenTotalSupply } from './token';
 import { insertVote } from './vote';
+import { writesignal } from './signal'
 
 function isProposalValid(proposalId: string ): boolean {
   let p = Proposal.load(proposalId);
@@ -318,4 +319,8 @@ export function removeDaoMember(reputationHolder: ReputationHolder): void {
      return;
    }
    daoModule.decreaseDAOmembersCount(dao);
+}
+
+export function addSignal(signalId: string, proposalId: string): void{
+  writesignal(signalId,proposalId);
 }

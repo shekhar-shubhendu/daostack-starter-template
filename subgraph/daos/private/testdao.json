@@ -1,9 +1,20 @@
 {
-  "name": "DevTest",
-  "Avatar": "0x845084276f991a8BEb9BdE65e1f84e5eBF76F9fF",
-  "DAOToken": "0x1473bDb022960bF71BB7608940c6214c782dbEe8",
-  "Reputation": "0xb60219736705dae2ea7F6538F27da6E9a9d5316e",
-  "Controller": "0x55465633e81Eb98d3C3BC3c870A40179148b37b9",
-  "Schemes": [],
+  "name": "Ubiquitous Sawfiler",
+  "Avatar": "0xb9e3Dd112BCc6e89546c46ABb1573cf9c62C3241",
+  "DAOToken": "0x22c38638aC5007e1De99fEAB20f664046cB42768",
+  "Reputation": "0xd5866DBDE071F070C254570d1BBbfE732860221e",
+  "Controller": "0x75FDc3D0415ac6EF34A4B619dc376aa0Bab66284",
+  "Schemes": [
+    {
+      "name": "GenericScheme",
+      "alias": "GenericSchemeAlias",
+      "address": "0xc1cDB5D4C5A3e6CAEa193c33219dB90f88eE7Bfc"
+    },
+    {
+      "name": "GenericScheme",
+      "alias": "GenericSchemeAlias2",
+      "address": "0xBC24D5E41c60DD605E24b5AAF7F6dDa6B9a7b5a6"
+    }
+  ],
   "arcVersion": "0.0.1-rc.31"
 }

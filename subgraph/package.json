@@ -48,6 +48,7 @@
   "dependencies": {
     "@graphprotocol/graph-cli": "0.16.0",
     "@graphprotocol/graph-ts": "0.16.0",
+    "@truffle/contract": "^4.1.7",
     "@types/node": "^10.14.4",
     "apollo-client": "^2.4.5",
     "apollo-link-ws": "^1.0.9",
