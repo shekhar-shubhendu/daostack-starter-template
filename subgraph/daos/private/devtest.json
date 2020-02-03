@@ -1,14 +1,14 @@
 {
   "name": "DevTest",
-  "Avatar": "0xB6A1A719BF89eb180bBd242914F30B874170e564",
-  "DAOToken": "0x6D5A3B5E99bC54f3FBd430E6c5594eF9f07F4205",
-  "Reputation": "0x302730FeD37306DAB374b5EFB328d6e217b64c1C",
-  "Controller": "0x2d8E3F31781846310Ae9b09473A9A73Bb7B0474D",
+  "Avatar": "0xec336601c7fe61f3f0504e24559947dc6e88e017",
+  "DAOToken": "0x2d8E3F31781846310Ae9b09473A9A73Bb7B0474D",
+  "Reputation": "0x9A806F1fB7Af141d0382235925C8511e67e77c9B",
+  "Controller": "0x8c9f69B09dd2060748a5d48cf9fF115f024D349d",
   "Schemes": [
     {
       "name": "GenericScheme",
       "alias": "GenericSchemeAlias",
-      "address": "0xd0cC95aeC378CCc0E2626fd2519e24E7B76087b9"
+      "address": "0x75E835582B2Cc4aa79fA50f2a42285EbEdF305b3"
     }
   ],
   "arcVersion": "0.0.1-rc.31"

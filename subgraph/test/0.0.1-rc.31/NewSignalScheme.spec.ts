@@ -10,18 +10,19 @@ import {
 
   jest.setTimeout(30000);
   
-  const ActionMock = require('@daostack/arc/build/contracts/ActionMock.json');
   const GenericScheme = require('@daostack/arc/build/contracts/GenericScheme.json');
   const GenesisProtocol = require('@daostack/arc/build/contracts/GenesisProtocol.json');
   const SignalScheme = require('../../../build/contracts/SignalScheme.json')
   const contract = require("@truffle/contract")
+  const devtest = require('../../daos/private/devtest.json')
+
   const Web3 = require('web3');
   const maintest = async (web3, addresses, opts, proposalIPFSData, matchto) => {
     const accounts = web3.eth.accounts.wallet;
   
     const genericScheme = new web3.eth.Contract(
       GenericScheme.abi,
-      '0xd0cC95aeC378CCc0E2626fd2519e24E7B76087b9',
+      devtest.Schemes[0].address,
       opts,
     );
 
@@ -32,17 +33,17 @@ import {
     GenericSchemeContract.defaults({
       from: accounts[0].address
     })
-    const deployed = await GenericSchemeContract.at('0xd0cC95aeC378CCc0E2626fd2519e24E7B76087b9')
+    const deployed = await GenericSchemeContract.at(devtest.Schemes[0].address)
     
     const genesisProtocol = new web3.eth.Contract(
       GenesisProtocol.abi,
-      '0xe708F1E0Ca12d21adB823062e34f1bb5A79DD979',
+      '0x34fd4D8Fe1Ba7eAf06db2EF4f9c87116431800b2',
       opts,
     );
   
     const signalSchemeMock = new web3.eth.Contract(
       SignalScheme.abi,
-      '0x75E835582B2Cc4aa79fA50f2a42285EbEdF305b3',
+      '0x4f6442D1247CfCE36110Bf97f4a64D1E26860c00',
       opts,
     );
   
@@ -66,13 +67,16 @@ import {
     const [PASS, FAIL] = [1, 2];
     async function vote({ proposalId, outcome, voter, amount = 0 }) {
       const { blockNumber } = await genesisProtocol.methods.vote(proposalId, 1, amount, voter)
-        .send({ from: voter });
+        .send({ from: voter, gas: 5000000 });
       const { timestamp } = await web3.eth.getBlock(blockNumber);
       return timestamp;
     }
 
     async function execute({ proposalId, sender}) {
-      const { blockNumber } = await genericScheme.methods.execute(proposalId).send()
+      const propExecute = genericScheme.methods.execute(new String(proposalId).valueOf())
+      const proposalIdReturned  = await propExecute.call();
+      console.log('>>>> ', proposalIdReturned)
+      const { blockNumber } = await propExecute.send({ from: accounts[8].address, gas: 5000000});
       const { timestamp } = await web3.eth.getBlock(blockNumber);
       return timestamp;
     }
@@ -118,7 +122,7 @@ import {
       genericScheme: {
         id: p1,
         dao: {
-          id: '0xb6a1a719bf89eb180bbd242914f30b874170e564',
+          id: devtest.Avatar,
         },
         contractToCall: signalSchemeMock.options.address.toLowerCase(),
         callData,
@@ -151,6 +155,7 @@ import {
     await increaseTime(5 * 1000, web3);
 
     console.log("calling execute....")
+    
     let executedAt = await execute({proposalId: p1, sender: accounts[0].address})
 
     console.log("after voting")
@@ -177,7 +182,7 @@ import {
       genericScheme: {
         id: p1,
         dao: {
-          id: '0xb6a1a719bf89eb180bbd242914f30b874170e564',
+          id: devtest.Avatar,
         },
         contractToCall: signalSchemeMock.options.address.toLowerCase(),
         callData,
@@ -234,6 +239,6 @@ import {
       const test = await maintest(web3, addresses, opts,proposalIPFSData, matchto)
   
   
-    }, 200000);
+    }, 100000);
   
   });
