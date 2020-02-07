@@ -42,6 +42,7 @@ services:
       GRAPH_GRAPHQL_MAX_FIRST: 1000
       GRAPH_IPFS_TIMEOUT: '4'
       GRAPH_MAX_IPFS_FILE_BYTES: '102400'
+      RUST_BACKTRACE: 1
 
   ipfs:
     image: starter_template_ipfs:latest

@@ -14,7 +14,7 @@
         "dao": "address",
         "mapping": "NewSignalScheme",
         "arcVersion": "0.0.1-rc.31",
-        "address": "0x4f6442D1247CfCE36110Bf97f4a64D1E26860c00"
+        "address": "0xf0EC0F1D6B72e8ea59981612A60fe09F08C45A5F"
       },
       {
         "name": "GenesisProtocol",

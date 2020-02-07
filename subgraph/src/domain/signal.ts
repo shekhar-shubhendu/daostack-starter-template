@@ -77,8 +77,8 @@ function appenddict(keypair: string, signal: Signal, curlybraceclosed:string, co
 
 export function readProposal(id: string, proposalId: string): void {
   let signal = getSignal(id);
-  var key = '';
-  var value = '';
+  let key = '';
+  let value = '';
   let proposal = store.get('Proposal', proposalId) as Proposal;
 
   let ipfsData = ipfs.cat('/ipfs/' + proposal.descriptionHash);

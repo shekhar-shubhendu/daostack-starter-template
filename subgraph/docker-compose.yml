@@ -20,6 +20,7 @@ services:
       GRAPH_IPFS_TIMEOUT: '2'
       GRAPH_MAX_IPFS_FILE_BYTES: '120000'
       GRAPH_GRAPHQL_MAX_FIRST: '1000'
+      RUST_BACKTRACE: 1
   ipfs:
     build: docker/ipfs
     ports:
