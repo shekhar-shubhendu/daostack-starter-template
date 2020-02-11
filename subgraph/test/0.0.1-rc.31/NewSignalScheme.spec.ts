@@ -11,7 +11,6 @@ jest.setTimeout(30000);
 const GenericScheme = require('@daostack/arc/build/contracts/GenericScheme.json');
 const GenesisProtocol = require('@daostack/arc/build/contracts/GenesisProtocol.json');
 const SignalScheme = require('./SignalScheme.json')
-const contract = require("@truffle/contract")
 const devtest = require('../../daos/private/devtest.json')
 
 const Web3 = require('web3');
@@ -23,14 +22,6 @@ const maintest = async (web3, opts, proposalIPFSData, matchto) => {
     devtest.Schemes[0].address,
     opts,
   );
-
-  const GenericSchemeContract = contract({
-    abi: GenericScheme.abi
-  })
-  GenericSchemeContract.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"))
-  GenericSchemeContract.defaults({
-    from: accounts[0].address
-  })
 
   const genesisProtocol = new web3.eth.Contract(
     GenesisProtocol.abi,
