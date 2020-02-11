@@ -1,66 +1,70 @@
 import {
-    getContractAddresses,
-    getOptions,
-    getWeb3,
-    writeProposalIPFS,
-  } from './util';
+  getContractAddresses,
+  getOptions,
+  getWeb3,
+  writeProposalIPFS,
+  sendQuery
+} from './util';
 
-  jest.setTimeout(30000);
-  
-  const SignalScheme = require('../../../build/contracts/SignalScheme.json')
+jest.setTimeout(30000);
 
-  const maintest = async (web3, addresses, opts, proposalIPFSData) => {
-  
-    const signalSchemeMock = new web3.eth.Contract(
-      SignalScheme.abi,
-      '0x6ff58D7EeaBBDB4F3029b94859fc6f179E2ef914',
-      opts,
-    );
-  
-    let descHash = await writeProposalIPFS(proposalIPFSData);
+const SignalScheme = require('./SignalScheme.json')
 
-    console.log(descHash)
-    
-    const signalData = await signalSchemeMock.methods.signal(descHash).send();
-    console.log('SignalTrigger: ', JSON.stringify(signalData))
-  
-  }
-  
-  describe('Generic Signal Scheme', () => {
-    let web3;
-    let addresses;
-    let opts;
-  
-    beforeAll(async () => {
-      web3 = await getWeb3();
-      addresses = getContractAddresses();
-      opts = await getOptions(web3);
-    });
-  
-    it('generic scheme proposal generate ', async () => {
-  
-      let proposalIPFSData = {
-        description: 'Setting new header Image',
-        title: 'New Header Image',
-        url: 'http://swift.org/modest/',
-        key: 'Header',
-        value: 'https://de.wikipedia.org/wiki/Wald#/media/Datei:Laurisilva_en_el_Cubo_de_la_Galga.jpg',
-      };
-  
-      let matchto = {
-        signals:[
-           {
-             data:
-               '{"Header":"https://de.wikipedia.org/wiki/Wald#/media/Datei:Laurisilva_en_el_Cubo_de_la_Galga.jpg"}',
-             id:
-               '0x86e9fe552e75e4fc51f46e4efc128628ecd5ada7'
-           }
-         ]
+const maintest = async (web3, opts, proposalIPFSData, matchto) => {
+
+  const signalSchemeMock = new web3.eth.Contract(SignalScheme.abi, opts);
+  const signalContract = await signalSchemeMock.deploy({
+    data: SignalScheme.bytecode,
+    arguments: []
+  }).send()
+  let descHash = await writeProposalIPFS(proposalIPFSData);
+  await signalContract.methods.signal(descHash).send();
+
+  const metaq = `{
+      signals{
+        id
+        data
       }
-  
-      const test = await maintest(web3, addresses, opts,proposalIPFSData)
-  
-  
-    }, 100000);
-  
+    }`
+
+  const metadata = await sendQuery(metaq, 15000);
+  expect(metadata).toMatchObject(matchto);
+
+}
+
+describe('Generic Signal Scheme', () => {
+  let web3;
+  let opts;
+
+  beforeAll(async () => {
+    web3 = await getWeb3();
+    opts = await getOptions(web3);
   });
+
+  it('generic scheme proposal generate ', async () => {
+
+    let proposalIPFSData = {
+      description: 'Setting new header Image',
+      title: 'New Header Image',
+      url: 'https://en.wikipedia.org/wiki/File:A5-1_GSM_cipher.svg',
+      key: 'Header',
+      value: 'https://en.wikipedia.org/wiki/File:A5-1_GSM_cipher.svg',
+    };
+
+    let matchto = {
+      signals: [
+        {
+          data:
+            '{"Header":"https://en.wikipedia.org/wiki/File:A5-1_GSM_cipher.svg"}',
+          id:
+            '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1'
+        }
+      ]
+    }
+
+    await maintest(web3, opts, proposalIPFSData, matchto)
+
+
+  }, 100000);
+
+});

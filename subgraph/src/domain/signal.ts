@@ -1,5 +1,5 @@
 import { Bytes, ipfs, json, JSONValueKind, store } from '@graphprotocol/graph-ts';
-import { Signal, Proposal } from '../types/schema';
+import { Signal } from '../types/schema';
 import { debug } from '../utils';
 
 export function getSignal(id: string): Signal {
@@ -79,9 +79,7 @@ export function readProposal(id: string, proposalId: string): void {
   let signal = getSignal(id);
   let key = '';
   let value = '';
-  let proposal = store.get('Proposal', proposalId) as Proposal;
-
-  let ipfsData = ipfs.cat('/ipfs/' + proposal.descriptionHash);
+  let ipfsData = ipfs.cat('/ipfs/' + proposalId);
   if (ipfsData != null && ipfsData.toString() !== '{}') {
 
     let descJson = json.fromBytes(ipfsData as Bytes);
